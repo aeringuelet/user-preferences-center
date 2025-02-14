@@ -9,3 +9,36 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  @@map("user")
+  id            Int      @id @default(autoincrement())
+  email         String   @unique
+  consents   Consent[]
+  consentChanges ConsentChangeEvent[]
+}
+
+enum ConsentType {
+    email_notifications
+    sms_notifications
+}
+
+model Consent {
+  @@map("consent")
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  type      ConsentType
+  value     Boolean
+  @@index(userId)
+}
+
+model ConsentChangeEvent {
+  @@map("consent_change_event")
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  type      ConsentType
+  value     Boolean
+  timestamp DateTime @default(now())
+}
