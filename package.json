@@ -1,28 +1,31 @@
 {
-  "name": "user-preference-center-challenge",
-  "version": "1.0.0",
-  "description": "Solves the Didomi backend challenge as Feb 2024: a user preference center",
-  "main": "dist/app.js",
-  "scripts": {
-    "start": "tsc && node dist/app.js",
-    "lint": "eslint . --fix --ignore-pattern '**/*.js'",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "@eslint/js": "^9.20.0",
-    "@types/express": "^5.0.0",
-    "@typescript-eslint/eslint-plugin": "^8.24.0",
-    "@typescript-eslint/parser": "^8.24.0",
-    "eslint": "^9.20.1",
-    "globals": "^15.14.0",
-    "typescript": "^5.7.3",
-    "typescript-eslint": "^8.24.0"
-  },
-  "dependencies": {
-    "dotenv": "^16.4.7",
-    "express": "^5.0.1"
-  }
+    "name": "user-preference-center-challenge",
+    "version": "1.0.0",
+    "description": "Solves the Didomi backend challenge as Feb 2024: a user preference center",
+    "main": "dist/app.js",
+    "scripts": {
+        "start": "tsc && node dist/app.js",
+        "lint": "eslint . --fix --ignore-pattern '**/*.js'",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "@eslint/js": "^9.20.0",
+        "@types/express": "^5.0.0",
+        "@typescript-eslint/eslint-plugin": "^8.24.0",
+        "@typescript-eslint/parser": "^8.24.0",
+        "eslint": "^9.20.1",
+        "eslint-config-prettier": "^10.0.1",
+        "globals": "^15.14.0",
+        "prettier": "3.5.1",
+        "prisma": "^6.3.1",
+        "typescript": "^5.7.3",
+        "typescript-eslint": "^8.24.0"
+    },
+    "dependencies": {
+        "dotenv": "^16.4.7",
+        "express": "^5.0.1"
+    }
 }
