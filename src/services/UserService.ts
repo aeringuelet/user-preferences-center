@@ -13,6 +13,6 @@ class UserServiceImpl {
     };
 }
 
-export const userService = (userStore: UserStore) =>
+export const UserService = (userStore: UserStore) =>
     new UserServiceImpl(userStore);
-export type UserService = ReturnType<typeof userService>;
+export type UserService = ReturnType<typeof UserService>;

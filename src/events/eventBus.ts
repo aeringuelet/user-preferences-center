@@ -1,5 +1,6 @@
-import { EventEmitter } from 'events';
-
-class EventBus extends EventEmitter {}
-
-export const eventBus = new EventBus();
+export interface EventBus<
+    T extends { type: string; data: unknown } = { type: string; data: unknown },
+> {
+    push(event: T): void;
+    subscribe(event: T['type'], listener: (event: T) => void): void;
+}

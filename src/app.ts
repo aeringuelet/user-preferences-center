@@ -1,6 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 import bodyParser from 'body-parser';
 import express from 'express';
+import { InMemoryEventBus } from './events/InMemoryEventBus';
 import { createStores } from './infrastructure/stores';
 import { initializeRoutes } from './routes';
 import { createServices } from './services/services';
@@ -14,8 +15,9 @@ const port = process.env.PORT || 3001;
 
 const prisma = new PrismaClient();
 
+const eventBus = InMemoryEventBus();
 const stores = createStores(prisma);
-const services = createServices(stores);
+const services = createServices(stores, eventBus);
 // maybe rename to controllers ?
 initializeRoutes(app, services);
 

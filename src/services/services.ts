@@ -1,12 +1,16 @@
+import { EventBus } from '../events/EventBus';
 import { Stores } from '../infrastructure/stores';
-import { userService } from './UserService';
+import { ConsentService } from './ConsentService';
+import { UserService } from './UserService';
 
-export const createServices = (stores: Stores) => {
+export const createServices = (stores: Stores, eventBus: EventBus) => {
     return {
-        userService: userService(stores.userStore),
+        userService: UserService(stores.userStore),
+        consentService: ConsentService(eventBus),
     };
 };
 
 export type Services = {
-    userService: ReturnType<typeof userService>;
+    userService: ReturnType<typeof UserService>;
+    consentService: ReturnType<typeof ConsentService>;
 };
