@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import bodyParser from 'body-parser';
 import express from 'express';
 import { createStores } from './infrastructure/stores';
 import { initializeRoutes } from './routes';
@@ -7,6 +8,8 @@ import { createServices } from './services/services';
 require('dotenv').config();
 
 const app = express();
+app.use(bodyParser.json());
+
 const port = process.env.PORT || 3001;
 
 const prisma = new PrismaClient();

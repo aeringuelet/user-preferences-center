@@ -8,9 +8,21 @@ export const userRoutes = (router: Router, services: Services) => {
         const user = await services.userService.getById(userId);
         if (user === null) {
             res.status(404).json({ message: 'User not found' });
-        } else {
-            res.status(200).json(user);
+            return;
         }
+
+        res.status(200).json({ user });
+    });
+
+    router.post('/', async (req, res) => {
+        if (!req.body.email) {
+            res.status(400).json({ message: 'Email is required' });
+            return;
+        }
+
+        const user = await services.userService.create(req.body);
+
+        res.status(201).json({ user });
     });
 
     return router;

@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, User } from '@prisma/client';
 import { UserStore } from './UserStore';
 
 class UserStorePrismaImpl implements UserStore {
@@ -13,6 +13,15 @@ class UserStorePrismaImpl implements UserStore {
             where: {
                 id,
             },
+            include: {
+                consents: true,
+            },
+        });
+    };
+
+    create: UserStore['create'] = async (user: Pick<User, 'email'>) => {
+        return await this.prisma.user.create({
+            data: user,
         });
     };
 }

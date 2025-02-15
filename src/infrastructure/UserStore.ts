@@ -1,5 +1,6 @@
-import { User } from '@prisma/client';
+import { Consent, User } from '@prisma/client';
 
 export interface UserStore {
-    getById(id: number): Promise<User | null>;
+    getById(id: number): Promise<(User & { consents: Consent[] }) | null>;
+    create(user: Pick<User, 'email'>): Promise<User>;
 }

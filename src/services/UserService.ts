@@ -1,3 +1,4 @@
+import { User } from '@prisma/client';
 import { UserStore } from '../infrastructure/UserStore';
 
 class UserServiceImpl {
@@ -5,6 +6,10 @@ class UserServiceImpl {
 
     getById = (id: number) => {
         return this.userStore.getById(id);
+    };
+
+    create = (user: Pick<User, 'email'>) => {
+        return this.userStore.create(user);
     };
 }
 
