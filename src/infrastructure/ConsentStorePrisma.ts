@@ -1,7 +1,7 @@
 import { Consent, PrismaClient } from '@prisma/client';
 import { ConsentStore } from './ConsentStore';
 
-class ConsentStorePrismaImpl {
+class ConsentStorePrismaImpl implements ConsentStore {
     constructor(private readonly prisma: PrismaClient) {}
 
     upsert: ConsentStore['upsert'] = async (consent: Omit<Consent, 'id'>) => {

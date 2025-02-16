@@ -32,6 +32,10 @@ class ConsentServiceImpl {
             },
         });
     };
+
+    getConsentChangesByUserId = (userId: number) => {
+        return this.consentChangeEventStore.getByUserId(userId);
+    };
 }
 
 export const ConsentService = (

@@ -18,5 +18,14 @@ export const consentRoutes = (services: Services) => {
         res.status(201).json({ ok: true });
     });
 
+    router.get('/changes/:userId', async (req, res) => {
+        const userId = Number(req.params.userId);
+
+        const consents =
+            await services.consentService.getConsentChangesByUserId(userId);
+
+        res.status(200).json({ ok: true, consents });
+    });
+
     return router;
 };

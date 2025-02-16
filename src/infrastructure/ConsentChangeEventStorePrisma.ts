@@ -1,8 +1,15 @@
 import { ConsentChangeEvent, PrismaClient } from '@prisma/client';
 import { ConsentChangeEventStore } from './ConsentChangeEventStore';
 
-class ConsentChangeEventStorePrismaImpl {
+class ConsentChangeEventStorePrismaImpl implements ConsentChangeEventStore {
     constructor(private readonly prisma: PrismaClient) {}
+    getByUserId: ConsentChangeEventStore['getByUserId'] = async (userId) => {
+        return await this.prisma.consentChangeEvent.findMany({
+            where: {
+                userId,
+            },
+        });
+    };
 
     create: ConsentChangeEventStore['create'] = async (
         consentChangeEvent: Omit<ConsentChangeEvent, 'id'>

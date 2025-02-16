@@ -42,4 +42,5 @@ model ConsentChangeEvent {
   type      ConsentType
   value     Boolean
   timestamp DateTime @default(now())
+  @@index(userId)
 }
