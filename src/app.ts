@@ -2,9 +2,9 @@ import { PrismaClient } from '@prisma/client';
 import bodyParser from 'body-parser';
 import express from 'express';
 import { InMemoryEventBus } from './events/InMemoryEventBus';
-import { createStores } from './infrastructure/stores';
+import { createStores } from './infrastructure';
 import { initializeRoutes } from './routes';
-import { createServices } from './services/services';
+import { createServices } from './services';
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 require('dotenv').config();
 

@@ -11,6 +11,7 @@ Solves [Didomi's backend challenge](https://github.com/didomi/challenges/blob/ma
 - Express
 - [Prisma ORM](https://www.prisma.io/)
 - PostgreSQL
+- Vitest
 
 ## Initial Setup
 

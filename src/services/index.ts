@@ -1,6 +1,6 @@
 import { BusEvent } from '../events/BusEvents';
 import { EventBus } from '../events/EventBus';
-import { Stores } from '../infrastructure/stores';
+import { Stores } from '../infrastructure';
 import { ConsentService } from './ConsentService';
 import { UserService } from './UserService';
 

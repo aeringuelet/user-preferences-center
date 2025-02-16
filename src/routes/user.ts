@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { Services } from '../services/services';
+import { Services } from '../services';
 
 export const userRoutes = (services: Services) => {
     const router = Router();

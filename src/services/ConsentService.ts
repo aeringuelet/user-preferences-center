@@ -10,17 +10,10 @@ class ConsentServiceImpl {
         private readonly consentChangeEventStore: ConsentChangeEventStore,
         private readonly eventBus: EventBus<BusEvent>
     ) {
-        eventBus.subscribe('user.consent.updated', async (event) => {
-            await this.consentStore.upsert(event.data.consent);
-
-            const consentChangeEvent: Omit<ConsentChangeEvent, 'id'> = {
-                userId: event.data.userId,
-                type: event.data.consent.type,
-                value: event.data.consent.value,
-                timestamp: new Date(),
-            };
-            await this.consentChangeEventStore.create(consentChangeEvent);
-        });
+        eventBus.subscribe(
+            'user.consent.updated',
+            this.handleUserConsentUpdated
+        );
     }
 
     createOrUpdate = (consent: Omit<Consent, 'id'>) => {
@@ -35,6 +28,18 @@ class ConsentServiceImpl {
 
     getConsentChangesByUserId = (userId: number) => {
         return this.consentChangeEventStore.getByUserId(userId);
+    };
+
+    private handleUserConsentUpdated = async (event: BusEvent) => {
+        await this.consentStore.upsert(event.data.consent);
+
+        const consentChangeEvent: Omit<ConsentChangeEvent, 'id'> = {
+            userId: event.data.userId,
+            type: event.data.consent.type,
+            value: event.data.consent.value,
+            timestamp: new Date(),
+        };
+        await this.consentChangeEventStore.create(consentChangeEvent);
     };
 }
 

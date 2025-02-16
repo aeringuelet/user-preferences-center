@@ -1,5 +1,5 @@
 import { Express } from 'express';
-import { Services } from '../services/services';
+import { Services } from '../services';
 import { consentRoutes } from './consent';
 import { userRoutes } from './user';
 
