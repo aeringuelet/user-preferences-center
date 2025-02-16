@@ -31,6 +31,7 @@ model Consent {
   type      ConsentType
   value     Boolean
   @@index(userId)
+  @@unique([userId, type])
 }
 
 model ConsentChangeEvent {

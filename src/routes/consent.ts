@@ -13,7 +13,7 @@ export const consentRoutes = (services: Services) => {
             return;
         }
 
-        services.consentService.create(req.body.consent);
+        services.consentService.createOrUpdate(req.body.consent);
 
         res.status(201).json({ ok: true });
     });

@@ -4,7 +4,7 @@ type UserConsentUpdatedEvent = {
     type: 'user.consent.updated';
     data: {
         userId: number;
-        consent: Consent;
+        consent: Omit<Consent, 'id'>;
     };
 };
 

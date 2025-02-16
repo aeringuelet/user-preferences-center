@@ -17,7 +17,7 @@ const prisma = new PrismaClient();
 
 const eventBus = InMemoryEventBus();
 const stores = createStores(prisma);
-const services = createServices(stores, eventBus);
+const services = createServices(eventBus, stores);
 // maybe rename to controllers ?
 initializeRoutes(app, services);
 
