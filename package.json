@@ -4,7 +4,8 @@
     "description": "Solves the Didomi backend challenge as Feb 2024: a user preference center",
     "main": "dist/app.js",
     "scripts": {
-        "start": "tsc && node dist/app.js",
+        "compile": "tsc",
+        "start": "npm run compile && node dist/app.js",
         "lint": "eslint . --fix --ignore-pattern '**/*.js'",
         "prisma:migrate": "prisma migrate dev",
         "test": "echo \"Error: no test specified\" && exit 1"
