@@ -1,8 +1,9 @@
 import { Router } from 'express';
 import { Services } from '../services';
 
-export const userRoutes = (services: Services) => {
+export const userController = (services: Services) => {
     const router = Router();
+
     router.get('/:id', async (req, res) => {
         const userId = Number(req.params.id);
 

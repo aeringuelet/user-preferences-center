@@ -10,12 +10,16 @@
         "prisma:migrate": "prisma migrate dev",
         "test": "vitest"
     },
+    "engines": {
+        "node": ">=21"
+    },
     "keywords": [],
-    "author": "",
+    "author": "Augusto E Ringuelet",
     "license": "ISC",
     "devDependencies": {
         "@eslint/js": "^9.20.0",
         "@types/express": "^5.0.0",
+        "@types/supertest": "^6.0.2",
         "@typescript-eslint/eslint-plugin": "^8.24.0",
         "@typescript-eslint/parser": "^8.24.0",
         "eslint": "^9.20.1",
@@ -23,6 +27,7 @@
         "globals": "^15.14.0",
         "prettier": "3.5.1",
         "prisma": "^6.3.1",
+        "supertest": "^7.0.0",
         "typescript": "^5.7.3",
         "typescript-eslint": "^8.24.0",
         "vitest": "^3.0.5"

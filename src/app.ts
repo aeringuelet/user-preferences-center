@@ -1,9 +1,9 @@
 import { PrismaClient } from '@prisma/client';
 import bodyParser from 'body-parser';
 import express from 'express';
+import { initializeControllers } from './controllers';
 import { InMemoryEventBus } from './events/InMemoryEventBus';
 import { createStores } from './infrastructure';
-import { initializeRoutes } from './routes';
 import { createServices } from './services';
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 require('dotenv').config();
@@ -18,8 +18,7 @@ const prisma = new PrismaClient();
 const eventBus = InMemoryEventBus();
 const stores = createStores(prisma);
 const services = createServices(eventBus, stores);
-// maybe rename to controllers ?
-initializeRoutes(app, services);
+initializeControllers(app, services);
 
 app.listen(port, () => {
     return console.log(`Express is listening at http://localhost:${port}`);
