@@ -1,16 +1,14 @@
-import bodyParser from 'body-parser';
-import express from 'express';
-import request from 'supertest';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { InMemoryEventBus } from '../events/InMemoryEventBus';
 import { ConsentChangeEventStore } from '../infrastructure/ConsentChangeEventStore';
 import { ConsentStore } from '../infrastructure/ConsentStore';
 import { ConsentService } from '../services/ConsentService';
-import { consentController } from './consent';
+import { consentController } from './Consent';
+import { superTestServer } from './utils/SuperTestServer';
 
 describe('consentController', () => {
-    describe('create consent', () => {
-        const [, , , server] = make();
+    describe('POST consent', () => {
+        const [, server] = make();
 
         it('should emit event to event bus', async () => {
             const res = await server.post('/consent').send({
@@ -35,12 +33,55 @@ describe('consentController', () => {
             });
         });
     });
+
+    describe('GET consent changes', () => {
+        const [{ consentChangeEventStore }, server] = make();
+
+        it('should return empty array if no consent changes', async () => {
+            const res = await server.get('/consent/changes/1');
+
+            expect(res.status).toEqual(200);
+            expect(res.body).toEqual({ ok: true, consents: [] });
+        });
+
+        it('should return consent changes', async () => {
+            const now = new Date();
+            const consent = {
+                id: 1,
+                userId: 1,
+                type: 'email_notifications' as const,
+                value: false,
+                timestamp: now,
+            };
+
+            const consentChangeEventStoreGetByUserIdSpy = vi.spyOn(
+                consentChangeEventStore,
+                'getByUserId'
+            );
+            consentChangeEventStoreGetByUserIdSpy.mockReturnValue(
+                Promise.resolve([consent])
+            );
+
+            const res = await server.get('/consent/changes/1');
+
+            expect(res.status).toEqual(200);
+            expect(res.body).toEqual({
+                ok: true,
+                consents: [
+                    {
+                        id: 1,
+                        userId: 1,
+                        type: 'email_notifications',
+                        value: false,
+                        timestamp: now.toISOString(),
+                    },
+                ],
+            });
+        });
+    });
 });
 
 function make() {
-    const app = express();
-    app.use(bodyParser.json());
-
     const consentStore: ConsentStore = {
         upsert: async (consent) => {
             return { id: 1, ...consent };
@@ -62,14 +103,8 @@ function make() {
             eventBus
         ),
     };
-    app.use('/consent', consentController(services));
 
-    const server = request(app);
+    const server = superTestServer('/consent', consentController(services));
 
-    return [
-        eventBus,
-        { consentChangeEventStore, consentStore },
-        services,
-        server,
-    ] as const;
+    return [{ consentChangeEventStore, consentStore }, server] as const;
 }
